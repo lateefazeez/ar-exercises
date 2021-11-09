@@ -16,3 +16,7 @@ puts @all_stores.average(:annual_revenue)
 @stores_making_one_million_or_more = Store.where('annual_revenue >= ?', 1000000).size()
 
 puts @stores_making_one_million_or_more
+
+for store in @all_stores
+  puts store.name
+end
