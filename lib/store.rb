@@ -1,5 +1,6 @@
 class Store < ActiveRecord::Base
   has_many :employees
+  before_destroy :check_for_employees, prepend: true
 
   validates :name, length: {minimum: 3}
   validates :annual_revenue, numericality: { only_integer: true, greater_than: 0}
@@ -15,4 +16,13 @@ class Store < ActiveRecord::Base
         puts errors.full_messages
     end
   end
+
+  private
+
+  def check_for_employees
+    if self.employees.any?
+      return false
+    end
+  end
+
 end
